@@ -3,6 +3,13 @@
 Command to make you a rockstar in less than 10 seconds
 Based on https://github.com/avinassh/rockstar
 
+## Features
+
+* Random real comments
+* Normal distributed commits
+* Less commits on weekends
+* [ ] Cross compiled binaries 
+
 ## Requirements
 
 Just git
@@ -11,7 +18,7 @@ Just git
 
 Download the binaries or install via go
 
-    go install github.com/3zcurdia/rockstar-cli
+    go get github.com/3zcurdia/rockstar-cli
 
 ## Usage
 
