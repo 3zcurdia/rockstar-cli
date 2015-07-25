@@ -51,7 +51,7 @@ func main() {
 
 	for i := -500; i < 0; i++ {
 		d := time.Now().Add(time.Duration(i*24) * time.Hour)
-		if d.Weekday() == time.Sunday {
+		if d.Weekday() == time.Sunday && i%2 == 0 {
 			continue
 		}
 		for j := 0; j < rand.Intn(10); j++ {
@@ -70,5 +70,6 @@ func main() {
 	os.Setenv("GIT_AUTHOR_DATE", "")
 	os.Setenv("GIT_COMMITTER_DATE", "")
 
+	fmt.Printf("\nProyect created at: %v", repo.DirPath)
 	fmt.Println("\nNow you are a goddamn rockstar!")
 }
