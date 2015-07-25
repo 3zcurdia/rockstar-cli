@@ -95,10 +95,10 @@ func main() {
 	repo := newRepo("main.go")
 	repo.appendCommit(code, time.Now().Add(-24*time.Hour))
 
-	for i := -1000; i < 0; i++ {
+	for i := -400; i < 0; i++ {
 		d := time.Now().Add(time.Duration(i*24) * time.Hour)
-		for j := 0; j < 10; j++ {
-			authorDate := time.Date(d.Year(), d.Month(), d.Day(), int(rand.NormFloat64()*3+12.0), rand.Intn(59), rand.Intn(59), 0, d.Location())
+		for j := 0; j < rand.Intn(10); j++ {
+			authorDate := time.Date(d.Year(), d.Month(), d.Day(), int(rand.NormFloat64()*3.0+12.0), rand.Intn(59), rand.Intn(59), 0, d.Location())
 			uid, err := uuid.NewV5(uuid.NamespaceURL, []byte(time.Now().Format(time.RFC3339Nano)))
 			commitData := fmt.Sprintf("%s", uid)
 			if err != nil {
@@ -113,5 +113,5 @@ func main() {
 	os.Setenv("GIT_AUTHOR_DATE", "")
 	os.Setenv("GIT_COMMITTER_DATE", "")
 
-	fmt.Println("Now you are a goddamn rockstar!")
+	fmt.Println("\nNow you are a goddamn rockstar!")
 }
