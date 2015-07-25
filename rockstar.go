@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/codegangsta/cli"
 	"github.com/nu7hatch/gouuid"
 	"io/ioutil"
 	"math/rand"
 	"os"
 	"os/exec"
+	"strconv"
 	"time"
 )
 
@@ -45,31 +47,59 @@ func (r *Repo) appendCommit(data string, date time.Time) {
 }
 
 func main() {
-	code := "writeln('Go is Awesome!!!')"
-	repo := newRepo("main.go")
-	repo.appendCommit(code, time.Now().Add(-24*time.Hour))
-
-	for i := -500; i < 0; i++ {
-		d := time.Now().Add(time.Duration(i*24) * time.Hour)
-		if d.Weekday() == time.Sunday && i%2 == 0 {
-			continue
+	app := cli.NewApp()
+	app.Name = "rockstar-cli"
+	app.Usage = "It make you a rockstar in less than 10 seconds"
+	app.Version = "0.0.1"
+	app.Author = "Luis Ezcurdia"
+	app.Email = "ing.ezcurdia@gmail.com"
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:  "days, d",
+			Value: "500",
+			Usage: "days of activity",
+		},
+		cli.StringFlag{
+			Name:  "code, c",
+			Value: "writeln('Go is Awesome!!!')",
+			Usage: "code base",
+		},
+		cli.StringFlag{
+			Name:  "filename, f",
+			Value: "main.go",
+			Usage: "output file",
+		},
+	}
+	app.Action = func(c *cli.Context) {
+		days, _ := strconv.Atoi(c.String("days"))
+		if days > 0 {
+			days *= -1
 		}
-		for j := 0; j < rand.Intn(10); j++ {
-			authorDate := time.Date(d.Year(), d.Month(), d.Day(), int(rand.NormFloat64()*3.0+12.0), rand.Intn(59), rand.Intn(59), 0, d.Location())
-			uid, err := uuid.NewV5(uuid.NamespaceURL, []byte(time.Now().Format(time.RFC3339Nano)))
-			commitData := fmt.Sprintf("%s", uid)
-			if err != nil {
+
+		repo := newRepo(c.String("filename"))
+
+		for i := days; i < 0; i++ {
+			d := time.Now().Add(time.Duration(i*24) * time.Hour)
+			if (d.Weekday() == time.Sunday || d.Weekday() == time.Saturday) && i%3 == 0 {
 				continue
 			}
-			// fmt.Printf("%v - %v\n", authorDate, commitData)
-			repo.appendCommit(commitData, authorDate)
+			for j := 0; j < rand.Intn(10); j++ {
+				authorDate := time.Date(d.Year(), d.Month(), d.Day(), int(rand.NormFloat64()*3.0+12.0), rand.Intn(59), rand.Intn(59), 0, d.Location())
+				uid, err := uuid.NewV5(uuid.NamespaceURL, []byte(time.Now().Format(time.RFC3339Nano)))
+				commitData := fmt.Sprintf("%s", uid)
+				if err != nil {
+					continue
+				}
+				repo.appendCommit(commitData, authorDate)
+			}
+			fmt.Print(".")
 		}
-		fmt.Print(".")
-	}
-	repo.appendCommit(code, time.Now())
-	os.Setenv("GIT_AUTHOR_DATE", "")
-	os.Setenv("GIT_COMMITTER_DATE", "")
+		repo.appendCommit(c.String("code"), time.Now())
+		os.Setenv("GIT_AUTHOR_DATE", "")
+		os.Setenv("GIT_COMMITTER_DATE", "")
 
-	fmt.Printf("\nProyect created at: %v", repo.DirPath)
-	fmt.Println("\nNow you are a goddamn rockstar!")
+		fmt.Printf("\nProyect created at: %v", repo.DirPath)
+		fmt.Println("\nNow you are a goddamn rockstar!")
+	}
+	app.Run(os.Args)
 }
