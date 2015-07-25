@@ -99,7 +99,8 @@ func main() {
 		d := time.Now().Add(time.Duration(i*24) * time.Hour)
 		for j := 0; j < 10; j++ {
 			authorDate := time.Date(d.Year(), d.Month(), d.Day(), int(rand.NormFloat64()*3+12.0), rand.Intn(59), rand.Intn(59), 0, d.Location())
-			commitData, err := uuid.NewV5(uuid.NamespaceURL, []byte(time.Now().Format(time.RFC3339Nano)))
+			uid, err := uuid.NewV5(uuid.NamespaceURL, []byte(time.Now().Format(time.RFC3339Nano)))
+			commitData := fmt.Sprintf("%s", uid)
 			if err != nil {
 				continue
 			}
