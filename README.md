@@ -1,18 +1,22 @@
 # rockstar-cli
 
-Command to make you a rockstar in less than 10 seconds
-Based on https://github.com/avinassh/rockstar
+Command to make you a rockstar in less than 10 seconds,
+based on [rockstar](https://github.com/avinassh/rockstar)
 
 ## Features
 
 * Random real comments
 * Normal distributed commits
 * Less commits on weekends
-* [ ] Cross compiled binaries 
+* Automatic push into github
+* [ ] Cross compiled binaries
+  * [x] OS X
+  * [ ] Linux x64
+  * [ ] Windows x64
 
 ## Requirements
 
-Just git
+You must have ```git``` installed and for automatic github push you must have installed [hub](https://github.com/github/hub)
 
 ## Install
 

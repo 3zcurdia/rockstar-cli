@@ -46,6 +46,16 @@ func (r *Repo) appendCommit(data string, date time.Time) {
 	exec.Command("git", "commit", "-m", messages[rand.Intn(len(messages))]).Run()
 }
 
+func (r *Repo) createRemoteRepo() {
+	_, err := exec.Command("hub", "version").Output()
+	if err != nil {
+		return
+	}
+	fmt.Println("Creating in your github account")
+	exec.Command("hub", "create").Run()
+	exec.Command("git", "push", "origin", "master").Run()
+}
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "rockstar-cli"
@@ -97,8 +107,9 @@ func main() {
 		repo.appendCommit(c.String("code"), time.Now())
 		os.Setenv("GIT_AUTHOR_DATE", "")
 		os.Setenv("GIT_COMMITTER_DATE", "")
+		repo.createRemoteRepo()
 
-		fmt.Printf("\nProyect created at: %v", repo.DirPath)
+		fmt.Printf("\nProyect created on: %v", repo.DirPath)
 		fmt.Println("\nNow you are a goddamn rockstar!")
 	}
 	app.Run(os.Args)
