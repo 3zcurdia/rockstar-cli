@@ -3,6 +3,18 @@
 Command to make you a rockstar in less than 10 seconds,
 based on [rockstar](https://github.com/avinassh/rockstar)
 
+### Before
+
+![before](https://raw.githubusercontent.com/3zcurdia/rockstar-cli/master/images/before.png)
+
+### After
+
+![after](https://raw.githubusercontent.com/3zcurdia/rockstar-cli/master/images/after.png)
+
+### Punch Card
+
+![punchcard](https://raw.githubusercontent.com/3zcurdia/rockstar-cli/master/images/punchcard.png)
+
 ## Features
 
 * Random real comments
