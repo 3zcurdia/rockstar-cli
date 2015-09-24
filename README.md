@@ -9,10 +9,10 @@ based on [rockstar](https://github.com/avinassh/rockstar)
 * Normal distributed commits
 * Less commits on weekends
 * Automatic push into github
-* [ ] Cross compiled binaries
-  * [x] OS X
-  * [ ] Linux x64
-  * [ ] Windows x64
+* Cross compiled binaries
+  * Darwin 386/amd64
+  * Linux 386/amd64/arm
+  * Windows 386/amd64
 
 ## Requirements
 
@@ -20,7 +20,7 @@ You must have ```git``` installed and for automatic github push you must have in
 
 ## Install
 
-Download the binaries or install via go
+Download the binaries [here](https://github.com/3zcurdia/rockstar-cli/releases) or install through go
 
     go get github.com/3zcurdia/rockstar-cli
 
