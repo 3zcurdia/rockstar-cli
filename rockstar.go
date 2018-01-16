@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/codegangsta/cli"
-	"github.com/nu7hatch/gouuid"
 	"io/ioutil"
 	"math/rand"
 	"os"
 	"os/exec"
 	"strconv"
 	"time"
+
+	"github.com/nu7hatch/gouuid"
+	"github.com/urfave/cli"
 )
 
 // Repo general information about repo
